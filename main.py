@@ -2,7 +2,7 @@ import os
 import json
 import re
 from typing import List, Optional
-
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 from pydantic import BaseModel
 from dotenv import load_dotenv
@@ -13,6 +13,18 @@ from langchain_core.prompts import PromptTemplate
 load_dotenv()
 
 app = FastAPI(title="AI Resume Builder API")
+
+
+# Allow CORS (for frontend integration)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 
 # ================= LLM =================
 
